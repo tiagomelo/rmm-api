@@ -1,0 +1,30 @@
+databaseChangeLog:
+- changeSet:
+   author: "Tiago Melo"
+   id: "creates_device_service_table"
+   changes:
+      - createTable:
+         tableName: "device_service"
+         columns:
+            - column:
+               name: "id"
+               type: "BIGINT"
+               autoIncrement: "true"
+               constraints:
+                  primaryKey: "true"
+            - column:
+               name: "device_id"
+               type: "BIGINT"
+               constraints:
+                  foreignKeyName: "fk_device_service_device"
+                  references: "device(id)"
+            - column:
+               name: "service_id"
+               type: "BIGINT"
+               constraints:
+                  foreignKeyName: "fk_device_service_service"
+                  references: "service(id)"
+      - addUniqueConstraint:
+           columnNames: "device_id, service_id"
+           constraintName: "device_service_device_id_service_id_unique"
+           tableName: "device_service"     

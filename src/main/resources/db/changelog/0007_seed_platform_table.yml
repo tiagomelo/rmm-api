@@ -1,0 +1,26 @@
+databaseChangeLog:
+- changeSet:
+   author: "Tiago Melo"
+   id: "seeds_platform_table"
+   changes:
+      - insert:
+         tableName: "platform"
+         columns:
+            - column:
+               name: "name"
+               value: "ANY"
+      - insert:
+         tableName: "platform"
+         columns:
+            - column:
+               name: "name"
+               value: "Windows"
+      - insert:
+         tableName: "platform"
+         columns:
+            - column:
+               name: "name"
+               value: "MacOS"
+   rollback:
+      - sql:
+         sql: "DELETE from platform"

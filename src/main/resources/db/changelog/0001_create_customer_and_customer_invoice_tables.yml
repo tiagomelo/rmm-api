@@ -1,0 +1,50 @@
+databaseChangeLog:
+- changeSet:
+   author: "Tiago Melo"
+   id: "creates_customer_and_customer_invoice_tables"
+   changes:
+      - createTable:
+         tableName: "customer"
+         columns:
+            - column:
+               name: "id"
+               type: "BIGINT"
+               autoIncrement: "true"
+               constraints:
+                  primaryKey: "true"
+            - column:
+               name: "name"
+               type: "VARCHAR(255)"
+               constraints: 
+                  nullable: "false"
+            - column:
+               name: "email"
+               type: "VARCHAR(255)"
+               constraints: 
+                  nullable: "false"
+      - addUniqueConstraint:
+           columnNames: "name, email"
+           constraintName: "customer_name_email_unique"
+           tableName: "customer" 
+      - createTable:
+         tableName: "customer_invoice"
+         columns:
+            - column:
+               name: "id"
+               type: "BIGINT"
+               autoIncrement: "true"
+               constraints:
+                  primaryKey: "true"
+            - column:
+               name: "customer_id"
+               type: "BIGINT"
+               constraints: 
+                  nullable: "false"
+                  unique: true
+                  foreignKeyName: "fk_customer_invoice_customer"
+                  references: "customer(id)"
+            - column:
+               name: "total"
+               type: "NUMERIC"
+               constraints:
+                  nullable: "false"

@@ -1,0 +1,60 @@
+databaseChangeLog:
+- changeSet:
+   author: "Tiago Melo"
+   id: "creates_device_and_device_type_tables"
+   changes:
+      - createTable:
+         tableName: "device_type"
+         columns:
+            - column:
+               name: "id"
+               type: "BIGINT"
+               autoIncrement: "true"
+               constraints:
+                  primaryKey: "true"
+            - column:
+               name: "name"
+               type: "VARCHAR(255)"
+               constraints: 
+                  nullable: "false"
+            - column:
+               name: "platform_id"
+               type: "BIGINT"
+               constraints:
+                  nullable: "false"
+                  foreignKeyName: "fk_device_type_platform"
+                  references: "platform(id)"
+      - createTable:
+         tableName: "device"
+         columns:
+            - column:
+               name: "id"
+               type: "BIGINT"
+               autoIncrement: "true"
+               constraints:
+                  primaryKey: "true"
+            - column:
+               name: "customer_id"
+               type: "BIGINT"
+               constraints:
+                  foreignKeyName: "fk_device_customer"
+                  references: "customer(id)"
+            - column:
+               name: "system_name"
+               type: "VARCHAR(255)"
+               constraints: 
+                  nullable: "false"
+            - column:
+               name: "type_id"
+               type: "BIGINT"
+               constraints: 
+                  foreignKeyName: "fk_device_device_type"
+                  references: "device_type(id)"
+      - addUniqueConstraint:
+           columnNames: "customer_id, system_name, type_id"
+           constraintName: "device_customer_id_system_name_type_id_unique"
+           tableName: "device"     
+      - addUniqueConstraint:
+           columnNames: "name, platform_id"
+           constraintName: "device_type_name_platform_id_unique"
+           tableName: "device_type"     

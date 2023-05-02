@@ -1,0 +1,35 @@
+databaseChangeLog:
+- changeSet:
+   author: "Tiago Melo"
+   id: "seeds_device_type_table"
+   changes:
+      - insert:
+         tableName: "device_type"
+         columns:
+            - column:
+               name: "name"
+               value: "Windows Workstation"
+            - column:
+               name: "platform_id"
+               value: 2
+      - insert:
+         tableName: "device_type"
+         columns:
+            - column:
+               name: "name"
+               value: "Windows Server"
+            - column:
+               name: "platform_id"
+               value: 2
+      - insert:
+         tableName: "device_type"
+         columns:
+            - column:
+               name: "name"
+               value: "MacOS Ventura"
+            - column:
+               name: "platform_id"
+               value: 3    
+   rollback:
+      - sql:
+         sql: "DELETE from device_type"

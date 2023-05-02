@@ -1,0 +1,32 @@
+databaseChangeLog:
+- changeSet:
+   author: "Tiago Melo"
+   id: "seeds_service_table"
+   changes:
+      - insert:
+         tableName: "service"
+         columns:
+            - column:
+               name: "type"
+               value: "Antivirus"
+      - insert:
+         tableName: "service"
+         columns:
+            - column:
+               name: "type"
+               value: "Backup"
+      - insert:
+         tableName: "service"
+         columns:
+            - column:
+               name: "type"
+               value: "Screen share"  
+      - insert:
+         tableName: "service"
+         columns:
+            - column:
+               name: "type"
+               value: "Device ownership"    
+   rollback:
+      - sql:
+         sql: "DELETE from service"

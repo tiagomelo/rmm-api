@@ -1,0 +1,36 @@
+databaseChangeLog:
+- changeSet:
+   author: "Tiago Melo"
+   id: "creates_service_price_table"
+   changes:
+      - createTable:
+         tableName: "service_price"
+         columns:
+            - column:
+               name: "id"
+               type: "BIGINT"
+               autoIncrement: "true"
+               constraints:
+                  primaryKey: "true"
+            - column:
+               name: "service_id"
+               type: "BIGINT"
+               constraints:
+                  foreignKeyName: "fk_service_price_service"
+                  references: "service(id)"
+            - column:
+               name: "platform_id"
+               type: "BIGINT"
+               constraints:
+                  foreignKeyName: "fk_service_price_platform"
+                  references: "platform(id)"
+                  nullable: "false"
+            - column:
+               name: "price"
+               type: "NUMERIC"
+               constraints:
+                  nullable: "false"
+      - addUniqueConstraint:
+           columnNames: "service_id, platform_id"
+           constraintName: "service_price_service_id_platform_id_unique"
+           tableName: "service_price"     
